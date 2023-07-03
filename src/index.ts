@@ -4,8 +4,12 @@ import mongoose from "mongoose";
 
 import { router } from "./router";
 
+const url = `mongodb://localhost:27017`;
+
+const cors = require("cors");
+
 mongoose
-  .connect("mongodb://localhost:27017")
+  .connect(url)
   .then(() => {
     const app = express();
     const port = 3001;
@@ -18,9 +22,20 @@ mongoose
     app.use(express.json());
     app.use(router);
 
+    app.use(
+      cors({
+        origin: "*",
+        methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+      })
+    );
+
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
   })
-  .catch(() => console.log("Erro ao conectar no mongodb"));
+  .catch((error) => {
+    console.log(url, error);
+
+    console.log("Erro ao conectar no mongodbrgdgdgdf");
+  });
 
