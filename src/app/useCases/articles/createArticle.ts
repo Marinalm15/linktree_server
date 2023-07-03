@@ -1,21 +1,22 @@
 import { Request, Response } from "express";
 
-import { Category } from "../../models/Category";
+import { Article } from "../../models/Article";
 
-export async function createCategory(req: Request, res: Response) {
+export async function createArticle(req: Request, res: Response) {
   try {
-    const { icon, name } = req.body;
+    const { url, name } = req.body;
 
     if (!name) {
       return res.status(400).json({ error: "Name is required" });
-    } else if (!icon) {
-      return res.status(400).json({ error: "Icon is required" });
+    } else if (!url) {
+      return res.status(400).json({ error: "URL is required" });
     }
 
-    const category = await Category.create({ icon, name });
-    res.status(201).json(category);
+    const article = await Article.create({ url, name });
+    res.status(201).json(article);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 }
+

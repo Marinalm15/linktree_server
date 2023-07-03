@@ -1,9 +1,10 @@
 import { model, Schema } from "mongoose";
 
-export const Category = model(
-  "Category",
+export const Article = model(
+  "Article",
   new Schema({
     name: { type: String, required: true },
-    icon: { type: String, required: true },
+    url: { type: String, required: true },
   })
 );
+
