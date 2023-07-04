@@ -6,13 +6,20 @@ import { router } from "./router";
 
 const url = `mongodb://localhost:27017`;
 
-const cors = require("cors");
-
 mongoose
   .connect(url)
   .then(() => {
     const app = express();
     const port = 3001;
+
+    app.use((req, res, next) => {
+      res
+        .setHeader("Access-Control-Allow-Origin", "*")
+        .setHeader("Access-Control-Allow-Methods", "*")
+        .setHeader("Access-Control-Allow-Headers", "*");
+
+      next();
+    });
 
     app.use(
       "/uploads",
@@ -22,13 +29,6 @@ mongoose
     app.use(express.json());
     app.use(router);
 
-    app.use(
-      cors({
-        origin: "*",
-        methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-      })
-    );
-
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
@@ -36,6 +36,6 @@ mongoose
   .catch((error) => {
     console.log(url, error);
 
-    console.log("Erro ao conectar no mongodbrgdgdgdf");
+    console.log("Erro ao conectar");
   });
 
