@@ -2,15 +2,11 @@ import path from "node:path";
 import { Router } from "express";
 import multer from "multer";
 
-import { createCategory } from "./app/useCases/categories/createCategory";
-import { listCategories } from "./app/useCases/categories/listCategories";
-import { createProduct } from "./app/useCases/products/createProduct";
-import { listProducts } from "./app/useCases/products/listProducts";
-import { listProductsByCategory } from "./app/useCases/categories/listProductsByCategory";
-import { listOrders } from "./app/useCases/orders/listOrders";
-import { createOrder } from "./app/useCases/orders/createOrder";
-import { changeOrderStatus } from "./app/useCases/orders/changeOrderStatus";
-import { cancelOrder } from "./app/useCases/orders/cancelOrder";
+import { listArticles } from "./app/useCases/articles/listArticles";
+import { createArticle } from "./app/useCases/articles/createArticle";
+import { updateArticle } from "./app/useCases/articles/updateArticle";
+import { deleteArticle } from "./app/useCases/articles/deleteArticle";
+import { listArticlesById } from "./app/useCases/articles/listArticlesById";
 
 export const router = Router();
 
@@ -25,30 +21,18 @@ const upload = multer({
   }),
 });
 
-// List categories
-router.get("/categories", listCategories);
+// List articles
+router.get("/article", listArticles);
 
-// Create category
-router.post("/categories", createCategory);
+// Create article
+router.post("/article", createArticle);
 
-// List products
-router.get("/products", listProducts);
+// Update article
+router.patch("/article/:articleId", updateArticle);
 
-// Create product
-router.post("/products", upload.single("image"), createProduct);
+// Delete article
+router.delete("/article/:articleId", deleteArticle);
 
-// Get product by category
-router.get("/categories/:categoryId/products", listProductsByCategory);
-
-// List orders
-router.get("/orders", listOrders);
-
-// Create order
-router.post("/orders", createOrder);
-
-// Change order Status
-router.patch("/orders/:orderId", changeOrderStatus);
-
-// Delete/cancel order
-router.delete("/orders/:orderId", cancelOrder);
+// List by Id
+router.get("/article/:articleId", listArticlesById);
 
