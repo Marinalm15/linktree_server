@@ -7,7 +7,9 @@ export async function deleteArticle(req: Request, res: Response) {
 
     await Article.findByIdAndDelete(articleId);
 
-    res.sendStatus(204);
+    const articles = await Article.find();
+
+    res.status(200).json(articles);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
