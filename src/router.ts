@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Router } from "express";
 import multer from "multer";
+import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 
 import { listArticles } from "./app/useCases/articles/listArticles";
 import { createArticle } from "./app/useCases/articles/createArticle";
@@ -25,14 +26,22 @@ const upload = multer({
 router.get("/article", listArticles);
 
 // Create article
-router.post("/article", createArticle);
+router.post("/article", ClerkExpressRequireAuth({}), createArticle);
 
 // Update article
-router.patch("/article/:articleId", updateArticle);
+router.patch("/article/:articleId", ClerkExpressRequireAuth({}), updateArticle);
 
 // Delete article
-router.delete("/article/:articleId", deleteArticle);
+router.delete(
+  "/article/:articleId",
+  ClerkExpressRequireAuth({}),
+  deleteArticle
+);
 
 // List by Id
-router.get("/article/:articleId", listArticlesById);
+router.get(
+  "/article/:articleId",
+  ClerkExpressRequireAuth({}),
+  listArticlesById
+);
 
