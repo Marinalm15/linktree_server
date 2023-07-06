@@ -5,6 +5,7 @@ export const Article = model(
   new Schema({
     name: { type: String, required: true },
     url: { type: String, required: true },
+    imagePath: { type: String },
     createdAt: { type: Date, default: Date.now },
   })
 );

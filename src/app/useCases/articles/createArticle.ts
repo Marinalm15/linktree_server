@@ -4,6 +4,7 @@ import { Article } from "../../models/Article";
 
 export async function createArticle(req: Request, res: Response) {
   try {
+    const imagePath = req.file?.filename;
     const { url, name } = req.body;
 
     if (!name) {
@@ -12,7 +13,7 @@ export async function createArticle(req: Request, res: Response) {
       return res.status(400).json({ error: "URL is required" });
     }
 
-    const article = await Article.create({ url, name });
+    const article = await Article.create({ url, name, imagePath });
     res.status(201).json(article);
   } catch (error) {
     console.log(error);

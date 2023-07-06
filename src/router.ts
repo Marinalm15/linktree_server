@@ -26,7 +26,12 @@ const upload = multer({
 router.get("/article", listArticles);
 
 // Create article
-router.post("/article", ClerkExpressRequireAuth({}), createArticle);
+router.post(
+  "/article",
+  upload.single("image"),
+  ClerkExpressRequireAuth({}),
+  createArticle
+);
 
 // Update article
 router.patch("/article/:articleId", ClerkExpressRequireAuth({}), updateArticle);
