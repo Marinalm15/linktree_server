@@ -34,7 +34,12 @@ router.post(
 );
 
 // Update article
-router.patch("/article/:articleId", ClerkExpressRequireAuth({}), updateArticle);
+router.patch(
+  "/article/:articleId",
+  upload.single("image"),
+  ClerkExpressRequireAuth({}),
+  updateArticle
+);
 
 // Delete article
 router.delete(
@@ -46,6 +51,7 @@ router.delete(
 // List by Id
 router.get(
   "/article/:articleId",
+  upload.single("image"),
   ClerkExpressRequireAuth({}),
   listArticlesById
 );

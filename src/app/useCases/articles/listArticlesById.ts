@@ -5,6 +5,7 @@ import { isValidObjectId } from "mongoose";
 export async function listArticlesById(req: Request, res: Response) {
   try {
     const { articleId } = req.params;
+    const imagePath = req.file?.filename;
 
     const isValidId = isValidObjectId(articleId);
 
